@@ -6,7 +6,7 @@
 /*   By: rgaia <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 13:36:50 by rgaia             #+#    #+#             */
-/*   Updated: 2019/02/28 16:53:32 by rgaia            ###   ########.fr       */
+/*   Updated: 2019/03/04 20:44:24 by rgaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,26 @@
 # define MAX(x,y) (x > y ? x : y)
 # define MIN(x,y) (x > y ? y : x)
 
-/*typedef struct		s_2dpoint
+/*typedef struct		s_2dpixel
 {
 	unsigned char	x; //later on expand from 1 byte (char) to 2-4 bytes (int)
 	unsigned char	y; //... using GLuint (still unsigned)
 	int				color;
-}					t_2dpoint;
+}					t_2dpixel;
 
-typedef struct		s_3dpoint
+typedef struct		s_3dpixel
 {
-	t_2dpoint		point2;
+	t_2dpixel		pixel2;
 	unsigned char	z; //Z will need GLint, as it allows (plus/negative) direxns
-}					t_3dpoint;*/
+}					t_3dpixel;*/
 
-typedef struct		s_point //a point is really just a pixel for us. Call it pixel?
+typedef struct		s_pixel
 {
 	int				color;
 	unsigned char	x;
 	unsigned char	y;
 	unsigned char	z;
-}					t_point;
+}					t_pixel;
 
 
 //typedef struct	s_view to hold all data about CAMERA_VIEW
@@ -73,8 +73,8 @@ typedef struct		s_point //a point is really just a pixel for us. Call it pixel?
 ** 
 ** Obs: use WHITE as Default Color
 */
-t_bool				ft_putpixel(t_point *point);
-//t_bool			ft_putpixel_color(t_point *point, int color);
+t_bool				ft_putpixel(t_pixel *p1);
+//t_bool			ft_putpixel_color(t_pixel *pixel, int color);
 
 
 /*
@@ -83,8 +83,8 @@ t_bool				ft_putpixel(t_point *point);
 **
 ** Obs: use WHITE as Default Color
 */
-t_bool				ft_putline(t_point *p1, t_point *p2);
-//t_bool			ft_putline(t_point *p1, t_point *p2);
+t_bool				ft_putline(t_pixel *p1, t_pixel *p2);
+//t_bool			ft_putline(t_pixel *p1, t_pixel *p2);
 
 
 /*
