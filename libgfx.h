@@ -6,7 +6,7 @@
 /*   By: rgaia <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 13:36:50 by rgaia             #+#    #+#             */
-/*   Updated: 2019/03/04 20:44:24 by rgaia            ###   ########.fr       */
+/*   Updated: 2019/03/06 23:13:41 by rgaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # define TRUE 1
 # define FALSE 0
-# define MAX_X 255 // we're using unsigned chars for now to learn how to 
+# define MAX_X 255 // we're using chars for now to learn how to 
 # define MAX_Y 255 // best fill in those data values 
 # define MAX_Z 255 // (X,Y) is always positive? Z allows negative
 
@@ -28,29 +28,35 @@
 # define MAX(x,y) (x > y ? x : y)
 # define MIN(x,y) (x > y ? y : x)
 
-/*typedef struct		s_2dpixel
+
+
+
+typedef struct		s_color
 {
-	unsigned char	x; //later on expand from 1 byte (char) to 2-4 bytes (int)
-	unsigned char	y; //... using GLuint (still unsigned)
-	int				color;
+	char			R;
+	char			G;
+	char			B;
+}					t_color;
+
+
+typedef struct		s_2dpixel
+{
+	char			x;
+	char			y; //... using GLuint (still unsigned)
+	t_color			color;	//how many bits do we need for color? Do 8 for now
 }					t_2dpixel;
 
 typedef struct		s_3dpixel
 {
-	t_2dpixel		pixel2;
-	unsigned char	z; //Z will need GLint, as it allows (plus/negative) direxns
-}					t_3dpixel;*/
+	t_2dpixel		pix;
+	int				z; //Z will need GLint, as it allows (plus/negative) direxns
+}					t_3dpixel;
 
-typedef struct		s_pixel
+typedef struct		s_fdf
 {
-	int				color;
-	unsigned char	x;
-	unsigned char	y;
-	unsigned char	z;
-}					t_pixel;
+	t_mlx			mlx;
 
-
-//typedef struct	s_view to hold all data about CAMERA_VIEW
+}					t_fdf;
 
 
 /******************* [MATH] Vector and Matrix Operations: *********************/
