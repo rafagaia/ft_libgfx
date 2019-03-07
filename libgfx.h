@@ -6,7 +6,7 @@
 /*   By: rgaia <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 13:36:50 by rgaia             #+#    #+#             */
-/*   Updated: 2019/03/01 11:45:31 by rgaia            ###   ########.fr       */
+/*   Updated: 2019/03/06 23:23:35 by rgaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 # define TRUE 1
 # define FALSE 0
-# define MAX_X 255 // we're using unsigned chars for now to learn how to 
+# define MAX_X 255 // we're using chars for now to learn how to 
 # define MAX_Y 255 // best fill in those data values 
 # define MAX_Z 255 // (X,Y) is always positive? Z allows negative
 
@@ -40,7 +40,7 @@ typedef struct			s_mlx
 
 typedef struct			s_image
 {
-	unsigned char		*data;
+	char				*data;
 	int					size; //24?
 	int					bpp; //filled with # of bits for color precision (24bit)
 	int					endian; //how pixel color in s_image needs to be stored
@@ -64,27 +64,27 @@ typedef struct			s_map
 	double				z_depth; //-z: Normal backwards to screen. +z: front
 }						t_map;
 
-typedef struct			s_tuple
+/* PIXEL - RELATED STRUCTS: t_color, t_2dvec, t_pixel */
+typedef struct			s_color
+{
+	char				RED;
+	char				GREEN;
+	char				BLUE;
+}						t_color;
+
+typedef struct			s_2dvec
 {
 	int					x;
 	int					y;
-}						t_tuple;
+}						t_2dvec;
 
 typedef struct			s_pixel
 {
 	int					z; //Depth
-	t_tuple				tuple_xy; //(Height, Width)
-	int					color;
+	t_2dvec				vec; //(Height, Width)
+	t_color				color;
 }						t_pixel; //( +Height, +Width, -+Depth )
 
-typedef struct			s_color
-{
-	unsigned char		red;
-	unsigned char		green;
-	unsigned char		blue;
-}						t_color;
-
-//typedef struct	s_view to hold all data about CAMERA_VIEW
 
 
 /******************* [MATH] Vector and Matrix Operations: *********************/
@@ -104,22 +104,14 @@ typedef struct			s_color
 /*
 ** @in:
 ** @err: Pixel Placed? (1/0)-(Successfully / Failed)
-** 
-** Obs: use WHITE as Default Color
 */
-t_bool				ft_putpixel(t_point *point);
-//t_bool			ft_putpixel_color(t_point *point, int color);
-
+t_bool				ft_putpixel(t_pixel *p1);
 
 /*
 ** Connects two (X, Y, Z) Coordinates together
 ** @err: (1/0)-(Success/Failed)
-**
-** Obs: use WHITE as Default Color
 */
-t_bool				ft_putline(t_point *p1, t_point *p2);
-//t_bool			ft_putline(t_point *p1, t_point *p2);
-
+t_bool				ft_putline(t_pixel *p1, t_pixel *p2);
 
 /*
 ** This function handles when client presses 'ESC' Key
