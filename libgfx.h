@@ -6,7 +6,7 @@
 /*   By: rgaia <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 13:36:50 by rgaia             #+#    #+#             */
-/*   Updated: 2019/02/28 16:53:32 by rgaia            ###   ########.fr       */
+/*   Updated: 2019/03/01 11:45:31 by rgaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 # define LIBGFX_H
 
 #include "../minilibx_macos/mlx.h"
-#include "../minilibx_macos/mlx_int.h" //you might not need this here
+#include "../ft_libft/libft.h"
+#include <math.h>
+#include <time.h> //FOR USING TIME AS SEED TO RANDOM NUMBERS
+#include <fcntl.h> //WHAT'S THIS LIBRARY FOR?
 
 # define TRUE 1
 # define FALSE 0
@@ -28,27 +31,58 @@
 # define MAX(x,y) (x > y ? x : y)
 # define MIN(x,y) (x > y ? y : x)
 
-/*typedef struct		s_2dpoint
+typedef struct			s_mlx
 {
-	unsigned char	x; //later on expand from 1 byte (char) to 2-4 bytes (int)
-	unsigned char	y; //... using GLuint (still unsigned)
-	int				color;
-}					t_2dpoint;
+	void				*init;
+	void				*window;
+	void				*image;
+}						t_mlx;
 
-typedef struct		s_3dpoint
+typedef struct			s_image
 {
-	t_2dpoint		point2;
-	unsigned char	z; //Z will need GLint, as it allows (plus/negative) direxns
-}					t_3dpoint;*/
+	unsigned char		*data;
+	int					size; //24?
+	int					bpp; //filled with # of bits for color precision (24bit)
+	int					endian; //how pixel color in s_image needs to be stored
+}						t_image;
 
-typedef struct		s_point //a point is really just a pixel for us. Call it pixel?
+typedef struct			s_map
 {
-	int				color;
-	unsigned char	x;
-	unsigned char	y;
-	unsigned char	z;
-}					t_point;
+	t_list				**field; //list_add as we read_in each new_line
+	int					f_x_height; //positive down
+	int					f_y_width; //positive right
+	int					x_coordinate; //increases downward towards EOF
+	int					y_coordinate; //increases right towards End of LINE
+	int					x0;
+	int					x1;
+	int					y0;
+	int					y1;
+	int					zoom;
+	int					isometric;
+	double				x_angle;
+	double				y_angle;
+	double				z_depth; //-z: Normal backwards to screen. +z: front
+}						t_map;
 
+typedef struct			s_tuple
+{
+	int					x;
+	int					y;
+}						t_tuple;
+
+typedef struct			s_pixel
+{
+	int					z; //Depth
+	t_tuple				tuple_xy; //(Height, Width)
+	int					color;
+}						t_pixel; //( +Height, +Width, -+Depth )
+
+typedef struct			s_color
+{
+	unsigned char		red;
+	unsigned char		green;
+	unsigned char		blue;
+}						t_color;
 
 //typedef struct	s_view to hold all data about CAMERA_VIEW
 
